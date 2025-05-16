@@ -9,7 +9,7 @@ import Foundation
 
 struct Track: Hashable {
     let id: Int
-    let thunmbnailURL100: String
+    let thumbnailURL100: String
     let title: String
     let artist: String
     let albumName: String

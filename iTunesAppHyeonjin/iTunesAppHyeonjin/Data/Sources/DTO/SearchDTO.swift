@@ -47,7 +47,7 @@ struct SearchResultDTO: Decodable {
     func toEntity() -> Track {
         Track(
             id: trackId,
-            thunmbnailURL100: artworkUrl100 ?? "",
+            thumbnailURL100: artworkUrl100 ?? "",
             title: trackName ?? "",
             artist: artistName ?? "",
             albumName: collectionName ?? ""
