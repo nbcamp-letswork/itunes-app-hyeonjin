@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol ItunesUseCaseProtocol {
-    func fetchMusicBySeason(season: Season) async throws -> Observable<[Track]>
+    func fetchMusicBySeason(season: Season) -> Observable<[Track]>
 }

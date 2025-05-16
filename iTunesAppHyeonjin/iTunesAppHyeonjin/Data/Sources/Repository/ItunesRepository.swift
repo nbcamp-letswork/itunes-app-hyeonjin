@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class ItunesRepository: ItunesRepositoryProtocol {
     let service: NetworkService
@@ -14,8 +15,18 @@ final class ItunesRepository: ItunesRepositoryProtocol {
         self.service = service
     }
     
-    func fetchMusicBySeason(season: Season) async throws -> [Track] {
-        let response: SearchDTO = try await service.request(ServiceType.fetchMusicBySeason(season: season.rawValue))
-        return response.results.map { $0.toEntity() }
+    func fetchMusicBySeason(season: Season) -> Single<[Track]> {
+        Single.create { [weak self] emitter in
+            guard let self else { return Disposables.create() }
+            Task {
+                do {
+                    let response: SearchDTO = try await self.service.request(ServiceType.fetchMusicBySeason(season: season.rawValue))
+                    emitter(.success(response.results.map { $0.toEntity() }))
+                } catch {
+                    emitter(.failure(error))
+                }
+            }
+            return Disposables.create()
+        }
     }
 }

@@ -15,7 +15,7 @@ final class ItunesUseCase: ItunesUseCaseProtocol {
         self.repository = repository
     }
     
-    func fetchMusicBySeason(season: Season) async throws -> Observable<[Track]> {
-        try await .just(repository.fetchMusicBySeason(season: season))
+    func fetchMusicBySeason(season: Season) -> Observable<[Track]> {
+        repository.fetchMusicBySeason(season: season).asObservable()
     }
 }

@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ItunesRepositoryProtocol {
-    func fetchMusicBySeason(season: Season) async throws -> [Track]
+    func fetchMusicBySeason(season: Season) -> Single<[Track]>
 }
