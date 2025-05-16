@@ -11,7 +11,7 @@ import SnapKit
 final class HomeView: UIView {
     let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = "Search iTunes"
+        searchController.searchBar.placeholder = "영화, 팟캐스트"
         return searchController
     }()
     

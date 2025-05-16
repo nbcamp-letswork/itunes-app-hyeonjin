@@ -106,7 +106,7 @@ private extension HomeViewController {
     func setAttributes() {
         title = "Music"
         view.backgroundColor = .systemBackground
-        navigationController?.navigationItem.searchController = homeView.searchController
+        navigationItem.searchController = homeView.searchController
     }
     
     func setDataSource() {
