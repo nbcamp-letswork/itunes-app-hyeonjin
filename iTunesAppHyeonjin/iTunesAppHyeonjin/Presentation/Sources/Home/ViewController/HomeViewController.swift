@@ -128,19 +128,7 @@ private extension HomeViewController {
                     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? BestMusicCollectionViewCell else { return UICollectionViewCell() }
                     cell.configure(track: track)
                     return cell
-                case .spring(let track):
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeasonMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? SeasonMusicCollectionViewCell else { return UICollectionViewCell() }
-                    cell.configure(track: track)
-                    return cell
-                case .summer(let track):
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeasonMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? SeasonMusicCollectionViewCell else { return UICollectionViewCell() }
-                    cell.configure(track: track)
-                    return cell
-                case .autumn(let track):
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeasonMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? SeasonMusicCollectionViewCell else { return UICollectionViewCell() }
-                    cell.configure(track: track)
-                    return cell
-                case .winter(let track):
+                case .spring(let track), .summer(let track), .autumn(let track), .winter(let track):
                     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeasonMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? SeasonMusicCollectionViewCell else { return UICollectionViewCell() }
                     cell.configure(track: track)
                     return cell
