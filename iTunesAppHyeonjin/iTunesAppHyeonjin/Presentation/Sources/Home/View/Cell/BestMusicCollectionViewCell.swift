@@ -48,7 +48,7 @@ final class BestMusicCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(track: Track) {
-        thumbnailImageView.loadImage(urlString: track.thumbnailURL100.replacingOccurrences(of: "100x100", with: "600x600"))
+        thumbnailImageView.loadImage(urlString: track.thumbnailURL100.replacingOccurrences(of: "100x100", with: "600x600"), to: thumbnailImageView.frame.size, scale: 1)
         titleLabel.text = track.title
         artistLabel.text = track.artist
     }

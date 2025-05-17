@@ -60,7 +60,7 @@ final class SeasonMusicCollectionViewCell: UICollectionViewCell {
         titleLabel.text = track.title
         artistLabel.text = track.artist
         albumLabel.text = track.albumName
-        thumbnailImageView.loadImage(urlString: track.thumbnailURL100)
+        thumbnailImageView.loadImage(urlString: track.thumbnailURL100, to: thumbnailImageView.frame.size, scale: 1)
     }
 }
 
