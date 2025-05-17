@@ -39,6 +39,7 @@ final class HomeViewModel: ViewModelProtocol {
         switch action {
         case .fetchSeasonMusic:
             Observable.merge(
+                useCase.fetchMusicBySeason(season: .spring).map { $0.map { .bestSpring($0) } },
                 useCase.fetchMusicBySeason(season: .spring).map { $0.map { .spring($0) } },
                 useCase.fetchMusicBySeason(season: .summer).map { $0.map { .summer($0) } },
                 useCase.fetchMusicBySeason(season: .autumn).map { $0.map { .autumn($0) } },

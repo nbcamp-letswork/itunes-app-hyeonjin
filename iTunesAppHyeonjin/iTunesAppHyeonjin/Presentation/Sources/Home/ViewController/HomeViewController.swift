@@ -10,13 +10,15 @@ import RxSwift
 import RxCocoa
 
 enum HomeSection: Int, Hashable {
-    case spring = 0
-    case summer = 1
-    case autumn = 2
-    case winter = 3
+    case bestSpring = 0
+    case spring = 1
+    case summer = 2
+    case autumn = 3
+    case winter = 4
 }
 
 enum HomeSectionItem: Hashable {
+    case bestSpring(Track)
     case spring(Track)
     case summer(Track)
     case autumn(Track)
@@ -52,7 +54,15 @@ final class HomeViewController: UIViewController {
     
     private func applySnapshot(items: [HomeSectionItem]) {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeSectionItem>()
-        snapshot.appendSections([.spring, .summer, .autumn, .winter])
+        snapshot.appendSections([.bestSpring, .spring, .summer, .autumn, .winter])
+        
+        snapshot.appendItems(
+            items.filter {
+                if case .bestSpring = $0 { return true }
+                return false
+            },
+            toSection: .bestSpring
+        )
         
         snapshot.appendItems(
             items.filter {
@@ -114,6 +124,10 @@ private extension HomeViewController {
             collectionView: homeView.homeCollectionView,
             cellProvider: { collectionView, indexPath, item in
                 switch item {
+                case .bestSpring(let track):
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BestMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? BestMusicCollectionViewCell else { return UICollectionViewCell() }
+                    cell.configure(track: track)
+                    return cell
                 case .spring(let track):
                     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeasonMusicCollectionViewCell.reuseIdentifier, for: indexPath) as? SeasonMusicCollectionViewCell else { return UICollectionViewCell() }
                     cell.configure(track: track)
@@ -141,10 +155,11 @@ private extension HomeViewController {
             ) as? SectionHeader else { return nil }
             
             switch indexPath.section {
-            case 0: headerView.configure(title: "봄", subTitle: "봄에 듣기 좋은 음악")
-            case 1: headerView.configure(title: "여름", subTitle: "여름에 듣기 좋은 음악")
-            case 2: headerView.configure(title: "가을", subTitle: "가을에 듣기 좋은 음악")
-            case 3: headerView.configure(title: "겨울", subTitle: "겨울에 듣기 좋은 음악")
+            case 0: headerView.configure(title: "봄 Best", subTitle: "봄에 어울리는 음악 Best 10")
+            case 1: headerView.configure(title: "봄", subTitle: "봄에 어울리는 음악")
+            case 2: headerView.configure(title: "여름", subTitle: "여름에 어울리는 음악")
+            case 3: headerView.configure(title: "가을", subTitle: "가을에 어울리는 음악")
+            case 4: headerView.configure(title: "겨울", subTitle: "겨울에 어울리는 음악")
             default:
                 break
             }

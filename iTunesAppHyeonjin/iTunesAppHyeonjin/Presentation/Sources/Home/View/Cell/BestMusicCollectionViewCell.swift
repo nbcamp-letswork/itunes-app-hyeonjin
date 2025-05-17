@@ -1,18 +1,17 @@
 //
-//  SeasonMusicCollectionViewCell.swift
+//  BestMusicCollectionViewCell.swift
 //  iTunesAppHyeonjin
 //
-//  Created by 유현진 on 5/14/25.
+//  Created by 유현진 on 5/17/25.
 //
 
 import UIKit
 import SnapKit
 
-final class SeasonMusicCollectionViewCell: UICollectionViewCell {
+final class BestMusicCollectionViewCell: UICollectionViewCell {
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 14
+        imageView.image = UIImage(systemName: "music.note")
         return imageView
     }()
     
@@ -33,14 +32,7 @@ final class SeasonMusicCollectionViewCell: UICollectionViewCell {
     
     private let artistLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    
-    private let albumLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 11, weight: .light)
+        label.font = .systemFont(ofSize: 11)
         label.textColor = .secondaryLabel
         return label
     }()
@@ -57,37 +49,46 @@ final class SeasonMusicCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(track: Track) {
+        thumbnailImageView.loadImage(urlString: track.thumbnailURL100.replacingOccurrences(of: "100x100", with: "600x600"))
         titleLabel.text = track.title
         artistLabel.text = track.artist
-        albumLabel.text = track.albumName
-        thumbnailImageView.loadImage(urlString: track.thumbnailURL100)
     }
 }
 
-private extension SeasonMusicCollectionViewCell {
+private extension BestMusicCollectionViewCell {
     func setAttributes() {
-        backgroundColor = .systemBackground
+        backgroundColor = .clear
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
+        
+        contentView.backgroundColor = .systemBackground
+        contentView.layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
     }
     
     func setHierarchy() {
-        addSubview(thumbnailImageView)
-        
-        [titleLabel, artistLabel, albumLabel].forEach {
-            stackView.addArrangedSubview($0)
+        [thumbnailImageView, stackView].forEach {
+            contentView.addSubview($0)
         }
         
-        addSubview(stackView)
+        [titleLabel, artistLabel].forEach {
+            stackView.addArrangedSubview($0)
+        }
     }
     
     func setConstraints() {
         thumbnailImageView.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview().inset(8)
-            make.width.equalTo(thumbnailImageView.snp.height)
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.7)
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.bottom.trailing.equalToSuperview().inset(8)
-            make.leading.equalTo(thumbnailImageView.snp.trailing).offset(8)
+            make.top.equalTo(thumbnailImageView.snp.bottom).offset(8)
+            make.leading.trailing.bottom.equalToSuperview().inset(8)
         }
     }
 }
