@@ -11,7 +11,6 @@ import SnapKit
 final class BestMusicCollectionViewCell: UICollectionViewCell {
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "music.note")
         return imageView
     }()
     
