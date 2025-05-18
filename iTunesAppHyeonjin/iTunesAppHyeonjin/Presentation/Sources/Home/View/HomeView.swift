@@ -51,7 +51,8 @@ private extension HomeView {
     
     func setConstraints() {
         homeCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.top.equalToSuperview()
+            make.leading.trailing.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
 }
@@ -61,13 +62,7 @@ private extension HomeView {
         switch sectionIndex {
         case .bestSpring:
             return makeLargeHorizontalSection()
-        case .autumn:
-            return makeHorizontalLayout()
-        case .spring:
-            return makeHorizontalLayout()
-        case .summer:
-            return makeHorizontalLayout()
-        case .winter:
+        case .autumn, .spring, .summer, .winter:
             return makeHorizontalLayout()
         }
     }
